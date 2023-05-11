@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Handles I/O for the command line interface
 class CLI
   def self.run(file_path)
     addresses = CSVFileReader.parse(file_path)
