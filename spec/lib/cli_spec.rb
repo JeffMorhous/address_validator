@@ -1,23 +1,26 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require_relative '../../lib/cli'
 require_relative '../../lib/address_validator'
 require_relative '../../lib/csv_file_reader'
 
+# rubocop:disable Metrics/BlockLength
 describe CLI do
-  describe ".run" do
-    it "reads, validates, and displays addresses" do
+  describe '.run' do
+    it 'reads, validates, and displays addresses' do
       file_path = 'spec/fixtures/test_file.csv' # We don't actually read the file here, since CSVFileReader is mocked
 
       addresses = [
-        { "street" => "143 e Maine Street", "city" => "Columbus", "zipcode" => "43215" },
-        { "street" => "1 Empora St", "city" => "Title", "zipcode" => "11111" },
-        { "street" => "800 N High St Suite 4-128", "city" => "Columbus", "zipcode" => "43215" }
+        { 'street' => '143 e Maine Street', 'city' => 'Columbus', 'zipcode' => '43215' },
+        { 'street' => '1 Empora St', 'city' => 'Title', 'zipcode' => '11111' },
+        { 'street' => '800 N High St Suite 4-128', 'city' => 'Columbus', 'zipcode' => '43215' }
       ]
 
       validated_addresses = [
-        "143 E Main St, Columbus 43215-5370",
-        "Invalid Address",
-        "800 N High St Ste 4-128, Columbus 43215-1430"
+        '143 E Main St, Columbus 43215-5370',
+        'Invalid Address',
+        '800 N High St Ste 4-128, Columbus 43215-1430'
       ]
 
       # Stub CSVFileReader.parse and AddressValidator.validate
@@ -31,18 +34,18 @@ describe CLI do
     end
   end
 
-  describe ".display_corrected_addresses" do
-    it "displays the the uncorrected addresses with the corrected addresses" do
+  describe '.display_corrected_addresses' do
+    it 'displays the the uncorrected addresses with the corrected addresses' do
       uncorrected_addresses = [
-        { "street" => "143 e Maine Street", "city" => "Columbus", "zipcode" => "43215" },
-        { "street" => "1 Empora St", "city" => "Title", "zipcode" => "11111" },
-        { "street" => "800 N High St Suite 4-128", "city" => "Columbus", "zipcode" => "43215" }
+        { 'street' => '143 e Maine Street', 'city' => 'Columbus', 'zipcode' => '43215' },
+        { 'street' => '1 Empora St', 'city' => 'Title', 'zipcode' => '11111' },
+        { 'street' => '800 N High St Suite 4-128', 'city' => 'Columbus', 'zipcode' => '43215' }
       ]
 
       corrected_addresses = [
-        "143 E Main St, Columbus 43215-5370",
-        "Invalid Address",
-        "800 N High St Ste 4-128, Columbus 43215-1430"
+        '143 E Main St, Columbus 43215-5370',
+        'Invalid Address',
+        '800 N High St Ste 4-128, Columbus 43215-1430'
       ]
 
       expected_output = [
@@ -56,3 +59,4 @@ describe CLI do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

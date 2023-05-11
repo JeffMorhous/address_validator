@@ -6,7 +6,7 @@ require 'httparty'
 class AddressValidator
   include HTTParty
 
-  QUERY_URL = "https://us-street.api.smartystreets.com/street-address?auth-id=#{ENV['AUTH_ID']}&auth-token=#{ENV['AUTH_TOKEN']}&license=#{ENV['LICENSE']}"
+  QUERY_URL = "https://us-street.api.smartystreets.com/street-address?auth-id=#{ENV['AUTH_ID']}&auth-token=#{ENV['AUTH_TOKEN']}&license=#{ENV['LICENSE']}".freeze
 
   def self.validate(addresses)
     exit unless env_vars_present?
@@ -18,7 +18,7 @@ class AddressValidator
       parse(response.body, addresses.size)
     else
       puts 'There was a problem connecting with the API'
-      return []
+      []
     end
   end
 

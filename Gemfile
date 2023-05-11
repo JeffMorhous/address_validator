@@ -4,6 +4,6 @@ source 'https://rubygems.org'
 
 gem 'csv'
 gem 'httparty'
-gem 'rubocop'
 gem 'rspec'
+gem 'rubocop'
 gem 'webmock'
