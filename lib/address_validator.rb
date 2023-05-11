@@ -13,12 +13,11 @@ class AddressValidator
     response = HTTParty.post query_url,
                             body: addresses.to_json
 
-    if response.code == "200"
-      puts "SUCCESS!"
-      puts response
+    if response.code == 200
+      parse(response.body, addresses.size)
     else
       puts response.code
-      return "Problem with API"
+      puts "Problem with API"
     end
   end
 
@@ -35,5 +34,28 @@ class AddressValidator
     end
     
     return true
+  end
+
+  def self.parse(response, number_of_inputs)
+    addresses = Array.new(number_of_inputs, "Invalid Address")
+    parsed_response = JSON.parse(response)
+    
+    parsed_response.each do |item|
+      index = item["input_index"]
+      address = format_address(item)
+  
+      addresses[index] = address
+    end
+  
+    addresses
+  end
+
+  def self.format_address(item)
+    delivery_line_1 = item["delivery_line_1"]
+    city = item["components"]["city_name"]
+    zipcode = item["components"]["zipcode"]
+    plus4_code = item["components"]["plus4_code"]
+  
+    "#{delivery_line_1}, #{city} #{zipcode}-#{plus4_code}"
   end
 end
